@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:17
+    user: root
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:18
+    container_name: odoo
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    tty: true
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - ./config/odoo.conf:/etc/odoo/odoo.conf
+      - ./mnt/addons:/mnt/addons
+      - ./mnt/extra-addons:/mnt/extra-addons
+      - odoo-data:/var/lib/odoo
+
+    command: >
+      bash -c "
+      odoo
+      -d odoo
+      -u all
+      --stop-after-init
+      &&
+      odoo
+      -d odoo
+      "
+
+volumes:
+  odoo-data:
+  odoo-addons:
+  db-data:
