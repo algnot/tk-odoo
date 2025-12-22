@@ -1,0 +1,21 @@
+<odoo>
+    <template id="report_survey_certificate">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="text-align:center;">
+                    <h1>Certificate of Completion</h1>
+
+                    <p>
+                        This certifies that<br/>
+                        <strong t-esc="doc.nickname"/>
+                    </p>
+
+                    <p>
+                        has successfully completed the survey<br/>
+                        <strong t-esc="doc.survey_id.title"/>
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
