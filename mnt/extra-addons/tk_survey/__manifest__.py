@@ -5,6 +5,8 @@
     "data": [
         "reports/certificate_report.xml",
         "reports/certificate_template.xml",
+        "reports/paperformat.xml",
+        "reports/report.xml",
     ],
     "assets": {
         "web.assets_frontend": [
