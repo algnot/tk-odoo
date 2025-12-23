@@ -1,5 +1,5 @@
 {
-    "name": "Survey Certificate Auto Download",
+    "name": "Tonkla Survey",
     "version": "1.0",
     "depends": ["survey", "website"],
     "data": [
