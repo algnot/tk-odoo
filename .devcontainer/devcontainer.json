@@ -1,0 +1,11 @@
+{
+  "name": "Odoo",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "odoo",
+  "workspaceFolder": "/mnt/extra-addons",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python"]
+    }
+  }
+}

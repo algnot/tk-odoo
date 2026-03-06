@@ -34,15 +34,14 @@ services:
       ODOO_DB_PASSWORD: ${ODOO_DB_PASSWORD:-odoo}
     volumes:
       - ./config/odoo.conf.template:/etc/odoo/odoo.conf.template
-      - ./src/addons:/mnt/addons
-      - ./src/extra-addons:/mnt/extra-addons
+      - ./src:/mnt/extra-addons
       - odoo-data:/var/lib/odoo
 
     command: >
       bash -c "
         envsubst < /etc/odoo/odoo.conf.template > /etc/odoo/odoo.conf &&
-        python3 -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 --wait-for-client -m odoo -d odoo -u all --without-demo=all --stop-after-init &&
-        python3 -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 --wait-for-client -m odoo -d odoo --without-demo=all
+        python3 -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 -m odoo -d odoo -u all --without-demo=all --stop-after-init &&
+        python3 -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 -m odoo -d odoo --without-demo=all
       "
 
 volumes:
