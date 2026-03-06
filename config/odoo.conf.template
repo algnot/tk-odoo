@@ -7,4 +7,4 @@ db_password = ${ODOO_DB_PASSWORD}
 addons_path = /mnt/addons,/mnt/extra-addons
 data_dir = /var/lib/odoo
 log_level = debug
-db_sslmode = require
+db_sslmode = disable

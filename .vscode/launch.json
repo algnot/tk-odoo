@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "name": "Debug",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/src/addons",
+          "remoteRoot": "/mnt/addons"
+        },
+        {
+          "localRoot": "${workspaceFolder}/src/extra-addons",
+          "remoteRoot": "/mnt/extra-addons"
+        }
+      ]
+    }
+  ]
+}
