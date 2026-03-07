@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:16-alpine
-    container_name: tk-odoo-db
     environment:
       POSTGRES_USER: ${ODOO_DB_USER:-odoo}
       POSTGRES_PASSWORD: ${ODOO_DB_PASSWORD:-odoo}
@@ -16,7 +15,6 @@ services:
 
   odoo:
     build: .
-    container_name: tk-odoo
     user: odoo
     depends_on:
       db:
@@ -28,8 +26,8 @@ services:
     env_file:
       - .env
     environment:
-      ODOO_DB_HOST: db
-      ODOO_DB_PORT: 5432
+      ODOO_DB_HOST: ${ODOO_DB_HOST:-db}
+      ODOO_DB_PORT: ${ODOO_DB_PORT:-5432}
       ODOO_DB_USER: ${ODOO_DB_USER:-odoo}
       ODOO_DB_PASSWORD: ${ODOO_DB_PASSWORD:-odoo}
     volumes:
