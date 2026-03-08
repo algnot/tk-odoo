@@ -1,10 +1,17 @@
 [options]
-db_host = ${ODOO_DB_HOST}
-db_port = ${ODOO_DB_PORT}
-db_user = ${ODOO_DB_USER}
-db_password = ${ODOO_DB_PASSWORD}
+db_host = db
+db_port = 5432
+db_user = odoo
+db_password = odoo
+db_sslmode = disable
+db_name = odoo
+db_maxconn = 200
+limit_time_real = 1200
+limit_time_cpu = 600
+longpolling_port = 8072
+
+workers = 4
 
 addons_path = /mnt/extra-addons
 data_dir = /var/lib/odoo
 log_level = debug
-db_sslmode = ${ODOO_DB_SSL_MODE}
