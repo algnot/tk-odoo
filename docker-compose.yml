@@ -27,7 +27,6 @@ services:
       - .env
     volumes:
       - ./config/odoo.conf.template:/etc/odoo/odoo.conf.template
-      - ./src:/mnt/extra-addons
       - odoo-data:/var/lib/odoo
 
     command: >

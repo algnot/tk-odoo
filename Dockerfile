@@ -7,4 +7,8 @@ RUN apt-get update && \
 
 RUN pip3 install debugpy --break-system-packages
 
+COPY ./src /mnt/extra-addons
+
+RUN chown -R odoo:odoo /mnt/extra-addons
+
 USER odoo
