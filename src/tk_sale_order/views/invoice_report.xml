@@ -215,7 +215,7 @@
             </thead>
             <tbody>
               <t t-foreach="o.invoice_line_ids" t-as="line">
-                <tr t-if="not line.exclude_from_invoice_tab and line.display_type not in ('line_section', 'line_note')">
+                <tr t-if="line.display_type not in ('line_section', 'line_note')">
                   <td><span t-field="line.product_id.default_code"/></td>
                   <td>
                     <span t-field="line.name"/> <br/>
