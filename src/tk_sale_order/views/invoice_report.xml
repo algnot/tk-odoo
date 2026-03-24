@@ -2,7 +2,7 @@
 <odoo>
 
   <template id="report_invoice_document_full"
-            inherit_id="account.report_invoice_document">
+            inherit_id="l10n_th.report_invoice_document">
     <xpath expr="." position="replace">
       <t t-call="web.basic_layout">
         <style>
