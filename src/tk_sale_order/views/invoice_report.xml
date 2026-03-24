@@ -64,10 +64,6 @@
             margin-top: 80px;
             text-align: center;
           }
-
-          table.order-lines td {
-            white-space: pre-line;
-          }
         </style>
 
         <t t-foreach="docs" t-as="o">
@@ -223,7 +219,7 @@
                   <td><span t-field="line.product_id.default_code"/></td>
                   <td>
                     <span t-field="line.name"/> <br/>
-                    <span t-field="line.product_id.description"/>
+                    <span t-field="line.product_id.description" t-options="{'widget': 'html'}"/>
                   </td>
                   <td class="text-right">
                     <span t-field="line.price_unit"
