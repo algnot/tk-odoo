@@ -214,26 +214,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr t-foreach="o.invoice_line_ids" t-as="line">
-                <t t-if="not line.display_type and not line.exclude_from_invoice_tab">
-                <td><span t-field="line.product_id.default_code"/></td>
-                <td>
-                  <span t-field="line.name"/> <br/>
-                  <span t-field="line.product_id.description"/>
-                </td>
-                <td class="text-right">
-                  <span t-field="line.price_unit"
-                        class="text-right"
-                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
-                </td>
-                <td class="text-right"><span class="text-right" t-field="line.quantity"/></td>
-                <td class="text-right">
-                  <span t-field="line.price_subtotal"
-                        class="text-right"
-                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
-                </td>
-                </t>
-              </tr>
+              <t t-foreach="o.invoice_line_ids" t-as="line">
+                <tr t-if="not line.display_type">
+                  <td><span t-field="line.product_id.default_code"/></td>
+                  <td>
+                    <span t-field="line.name"/> <br/>
+                    <span t-field="line.product_id.description"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-field="line.price_unit"
+                          class="text-right"
+                          t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                  </td>
+                  <td class="text-right"><span class="text-right" t-field="line.quantity"/></td>
+                  <td class="text-right">
+                    <span t-field="line.price_subtotal"
+                          class="text-right"
+                          t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                  </td>
+                </tr>
+              </t>
             </tbody>
           </table>
 
