@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="report_invoice_document_full"
+            inherit_id="account.report_invoice_document">
+    <xpath expr="." position="replace">
+      <t t-call="web.basic_layout">
+        <style>
+          @font-face {
+            font-family: 'NotoSansThai';
+            src: url('/tk_sale_order/static/fonts/NotoSansThaiUI-Regular.ttf') format('truetype');
+          }
+
+          @font-face {
+            font-family: 'NotoSansThai';
+            src: url('/tk_sale_order/static/fonts/NotoSansThaiUI-Bold.ttf') format('truetype');
+            font-weight: bold;
+          }
+
+          .page {
+            min-height: auto !important;
+            display: block !important;
+            justify-content: flex-start !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+          }
+
+          body {
+            margin-top: 0 !important;
+          }
+
+          body, div, table, span, p, td, th {
+            font-family: 'NotoSansThai' !important;
+            font-size: 12pt;
+            color: #333;
+          }
+
+          .doc-title {
+            font-size: 26pt;
+            font-weight: bold;
+          }
+
+          .doc-title2 {
+            font-size: 20pt;
+            font-weight: bold;
+          }
+
+          .info-box {
+            border-top: 1px solid #000;
+          }
+
+          table.order-lines thead th {
+            background: #4a4a4a;
+            color: #fff;
+            padding: 8px;
+          }
+
+          table.order-lines td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+          }
+
+          .signature {
+            margin-top: 80px;
+            text-align: center;
+          }
+        </style>
+
+        <t t-foreach="docs" t-as="o">
+          <div class="row mb-4">
+            <div class="col-10">
+              <div class="doc-title">ใบแจ้งหนี้</div>
+              <div class="doc-title2">Invoice</div>
+            </div>
+
+            <div class="col-2">
+              <img t-if="o.company_id.logo"
+                   t-att-src="'data:image/png;base64,%s' % o.company_id.logo.decode('utf-8')"
+                   style="max-height:40px;"/>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-8">
+              <div class="row">
+                <div class="col-3">
+                  <strong>ลูกค้า / </strong>Customer
+                </div>
+                <div class="col-9">
+                  <span t-field="o.partner_id.name"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <strong>ที่อยู่ / </strong>Address
+                </div>
+                <div class="col-9">
+                  <span t-field="o.partner_id.street"/> <br/>
+                  <span t-field="o.partner_id.street2"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <strong>เลขผู้เสียภาษี / </strong>Tax
+                </div>
+                <div class="col-9">
+                  <span t-esc="o.partner_id.vat or '-'"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <strong>โทร / </strong>Phone
+                </div>
+                <div class="col-9">
+                  <span t-esc="o.partner_id.phone or '-'"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-6">
+                  <strong>เลขที่ / </strong>No.
+                </div>
+                <div class="col-6">
+                  <span t-esc="o.name or '-'"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <strong>วันที่ / </strong>Issue
+                </div>
+                <div class="col-6">
+                  <span t-field="o.invoice_date" t-options="{'widget': 'date'}"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <strong>ครบกำหนด / </strong>Due
+                </div>
+                <div class="col-6">
+                  <span t-field="o.invoice_date_due" t-options="{'widget': 'date'}"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <strong>อ้างอิง / </strong>Ref
+                </div>
+                <div class="col-6">
+                  <span t-esc="o.ref or '-'"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box mt-4 pt-4 pb-4">
+            <div class="row">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-2">
+                    <strong>ผู้ออก</strong> <br/>
+                    Issuer
+                  </div>
+                  <div class="col-10">
+                    <span t-field="o.company_id.name"/> <br/>
+                    <span t-field="o.company_id.street"/> <br/>
+                    <span t-field="o.company_id.street2"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-5">
+                    <strong>เลขผู้เสียภาษี / </strong>Tax
+                  </div>
+                  <div class="col-7">
+                    <span t-field="o.company_id.vat"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-5">
+                    <strong>โทร / </strong>Phone
+                  </div>
+                  <div class="col-7">
+                    <span t-field="o.company_id.phone"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table class="table order-lines mb-8">
+            <thead>
+              <tr>
+                <th>
+                  <strong>รหัส</strong> <br/>
+                  ID no.
+                </th>
+                <th>
+                  <strong>คำอธิบาย</strong> <br/>
+                  Description
+                </th>
+                <th>
+                  <strong>ราคาต่อหน่วย</strong> <br/>
+                  Unit Price
+                </th>
+                <th>
+                  <strong>จำนวน</strong> <br/>
+                  Quantity
+                </th>
+                <th>
+                  <strong>มูลค่ารวม</strong> <br/>
+                  Total
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr t-foreach="o.invoice_line_ids.filtered(lambda l: not l.display_type)" t-as="line">
+                <td><span t-field="line.product_id.default_code"/></td>
+                <td>
+                  <span t-field="line.name"/> <br/>
+                  <span t-field="line.product_id.description"/>
+                </td>
+                <td class="text-right">
+                  <span t-field="line.price_unit"
+                        class="text-right"
+                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                </td>
+                <td class="text-right"><span class="text-right" t-field="line.quantity"/></td>
+                <td class="text-right">
+                  <span t-field="line.price_subtotal"
+                        class="text-right"
+                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <div class="col-6"/>
+            <div class="col-6 summary-box mt-4">
+              <div class="d-flex justify-content-between">
+                <strong>จำนวนเงินรวมทั้งสิ้น (บาท)</strong>
+                <div class="text-right">
+                  <span t-field="o.amount_total"
+                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                </div>
+              </div>
+              <hr/>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <strong>หมายเหตุ / </strong> Remark
+            <div t-field="o.narration" t-options="{'widget': 'html'}"/>
+          </div>
+
+          <div class="row">
+            <div class="col-1"/>
+            <center class="signature col-4">
+              _________________________<br/>
+              ( <span t-field="o.partner_id.name"/> ) <br/><br/>
+              <strong>วันที่ / </strong> Date
+              <span t-if="not o.invoice_date">________________</span>
+              <span t-field="o.invoice_date" t-options="{'widget': 'date'}"/>
+            </center>
+            <div class="col-2"/>
+            <center class="signature col-4">
+              _________________________<br/>
+              ( <span t-field="o.company_id.name"/> ) <br/><br/>
+              <strong>วันที่ / </strong> Date
+              <span t-field="o.invoice_date" t-options="{'widget': 'date'}"/>
+            </center>
+            <div class="col-1"/>
+          </div>
+        </t>
+      </t>
+    </xpath>
+  </template>
+
+</odoo>
