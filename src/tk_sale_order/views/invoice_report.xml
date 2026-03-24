@@ -219,7 +219,7 @@
                   <td><span t-field="line.product_id.default_code"/></td>
                   <td>
                     <span t-esc="line.name.replace('\n', '&lt;br/&gt;')" t-options="{'widget': 'html'}"/> <br/>
-                    <span t-esc="line.product_id.description.replace('\n', '&lt;br/&gt;')" t-options="{'widget': 'html'}"/>
+                    <span t-field="line.product_id.description"/>
                   </td>
                   <td class="text-right">
                     <span t-field="line.price_unit"
