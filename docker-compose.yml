@@ -22,11 +22,15 @@ services:
     ports:
       - "8069:8069"
       - "5678:5678"
+      - "8072:8072"
     tty: true
     env_file:
       - .env
+    environment:
+      PYTHONDONTWRITEBYTECODE: "1"
     volumes:
       - ./config/odoo.conf.template:/etc/odoo/odoo.conf.template
+      - ./src:/mnt/extra-addons
       - odoo-data:/var/lib/odoo
 
     command: >
@@ -35,7 +39,7 @@ services:
 
         if [ \"$IS_MIGRATE\" = \"true\" ]; then
           echo 'Running migration...'
-          /usr/bin/odoo -d odoo -u all --without-demo=all --stop-after-init
+          /usr/bin/odoo -d odoo -u tk_sale_order --without-demo=all --stop-after-init
         else
           echo 'Skipping migration'
         fi
