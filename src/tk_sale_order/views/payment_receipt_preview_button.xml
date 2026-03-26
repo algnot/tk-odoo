@@ -17,6 +17,18 @@
                 class="btn-secondary"
                 icon="fa-file-pdf-o"/>
       </xpath>
+
+      <xpath expr="//div[@name='amount_div']" position="after">
+        <div class="o_row" name="withholding_div">
+          <label for="is_withholding_registation" string="หักภาษี ณ ที่จ่าย"/>
+          <field name="is_withholding_registation" nolabel="1"/>
+          <label for="withholding_percent" string="%"
+                 invisible="not is_withholding_registation"/>
+          <field name="withholding_percent"
+                 nolabel="1"
+                 invisible="not is_withholding_registation"/>
+        </div>
+      </xpath>
     </field>
   </record>
 </odoo>
